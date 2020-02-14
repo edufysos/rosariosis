@@ -31,6 +31,7 @@ $menu['Scheduling']['admin'] = array(
 	'Scheduling/AddDrop.php' => _( 'Add / Drop Report' ),
 	2 => _( 'Setup' ),
 	'Scheduling/Courses.php' => _( 'Courses' ),
+	'Scheduling/CoursesAbroad.php' => _( 'Courses Abroad' ),
 	'Scheduling/Scheduler.php' => _( 'Run Scheduler' ),
 );
 
@@ -53,6 +54,7 @@ $menu['Scheduling']['parent'] = array(
 	'Scheduling/Requests.php' => _( 'Student Requests' ),
 	// Activate Courses for Teachers & Parents & Students.
 	'Scheduling/Courses.php' => _( 'Courses' ),
+	'Scheduling/CoursesAbroad.php' => _( 'Courses Abroad' ),
 	1 => _( 'Reports' ),
 	// FJ activate Print Schedules for parents and students.
 	'Scheduling/PrintSchedules.php' => _( 'Print Schedules' ),
