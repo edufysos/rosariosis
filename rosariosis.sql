@@ -2908,6 +2908,8 @@ INSERT INTO profile_exceptions VALUES (3, 'Student_Billing/StudentPayments.php',
 INSERT INTO profile_exceptions VALUES (3, 'Student_Billing/DailyTransactions.php', 'Y', NULL);
 INSERT INTO profile_exceptions VALUES (3, 'Student_Billing/Statements.php&_ROSARIO_PDF', 'Y', NULL);
 INSERT INTO profile_exceptions VALUES (1, 'Students/StudentBreakdown.php', 'Y', 'Y');
+INSERT INTO profile_exceptions VALUES (0, 'Scheduling/CoursesAbroad.php', 'Y', 'Y');
+INSERT INTO profile_exceptions VALUES (1, 'Scheduling/CoursesAbroad.php', 'Y', 'Y');
 
 
 --
