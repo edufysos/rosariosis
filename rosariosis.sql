@@ -2848,7 +2848,7 @@ INSERT INTO profile_exceptions VALUES (0, 'Scheduling/Schedule.php', 'Y', NULL);
 INSERT INTO profile_exceptions VALUES (0, 'Scheduling/Courses.php', 'Y', NULL);
 INSERT INTO profile_exceptions VALUES (0, 'Scheduling/PrintSchedules.php', 'Y', NULL);
 INSERT INTO profile_exceptions VALUES (0, 'Scheduling/PrintClassPictures.php', 'Y', NULL);
-INSERT INTO profile_exceptions VALUES (0, 'Scheduling/Requests.php', 'Y', NULL);
+INSERT INTO profile_exceptions VALUES (0, 'Scheduling/Requests.php', 'Y', 'Y');
 INSERT INTO profile_exceptions VALUES (0, 'Grades/StudentGrades.php', 'Y', NULL);
 INSERT INTO profile_exceptions VALUES (0, 'Grades/StudentAssignments.php', 'Y', NULL);
 INSERT INTO profile_exceptions VALUES (0, 'Grades/FinalGrades.php', 'Y', NULL);
