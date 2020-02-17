@@ -410,12 +410,70 @@ function core_role_assign_roles_object()
 	return array( $assignments );
 }
 
+
+//enrol_manual_enrol_users function
+function enrol_manual_enrol_users_object()
+{
+	//first, gather the necessary variables
+	global $columns, $_REQUEST;
+
+	//then, convert variables for the Moodle object:
+	/*
+	list of (
+	object {
+	roleid int   //Role to assign to the user
+	userid int   //The user that is going to be assigned
+	contextid int  Optional //The context to assign the user role in
+	contextlevel string  Optional //The context level to assign the user role in
+	(block, course, coursecat, system, user, module)
+	instanceid int  Optional //The Instance id of item where the role needs to be assigned
+	}
+	)*/
+
+	//teacher's roleid = teacher = 3
+	$roleid = 3;
+
+	//get the Moodle user ID
+	$userid = (int) DBGetOne( "SELECT moodle_id
+		FROM moodlexrosario
+		WHERE rosario_id='" . $columns['TEACHER_ID'] . "'
+		AND \"column\"='staff_id'" );
+
+	if ( empty( $userid ) )
+	{
+		return null;
+	}
+
+	//gather the Moodle course ID
+	$courseid = (int) DBGetOne( "SELECT moodle_id
+		FROM moodlexrosario
+		WHERE rosario_id='" . $_REQUEST['course_period_id'] . "'
+		AND \"column\"='course_period_id'" );
+
+	if ( empty( $courseid ) )
+	{
+		return null;
+	}
+
+	$contextlevel = 'course';
+
+	$enrolment = array(
+		array(
+			'roleid' => $roleid,
+			'userid' => $userid,
+			'courseid' => $courseid,
+		),
+	);
+
+	return array( $enrolment );
+}
+
 /**
  * @param $response
  */
 function core_role_assign_roles_response( $response )
 {
-	return null;
+	return $response;
 }
 
 //core_course_delete_courses function
@@ -441,6 +499,15 @@ function core_course_delete_courses_object()
 	$courses = array( $id );
 
 	return array( $courses );
+}
+
+/**
+ * @param $response
+ */
+function enrol_manual_enrol_users_response( $response )
+{
+	
+	return $response;
 }
 
 /**
