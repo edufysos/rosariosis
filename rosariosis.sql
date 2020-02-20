@@ -2189,6 +2189,44 @@ CREATE TABLE user_profiles (
     updated_at timestamp
 );
 
+-- Table: public.universities_abroad
+
+CREATE TABLE public.universities_abroad
+(
+    university_id serial NOT NULL,
+    university_name character varying(100),
+    university_url character varying(255),
+    university_token text,
+    CONSTRAINT universities_abroad_pkey PRIMARY KEY (university_id)
+)
+
+	
+
+-- Table: public.requests_abroad
+
+
+CREATE TABLE public.requests_abroad
+(
+    request_abroad_id serial NOT NULL,
+    university_id integer NOT NULL,
+    subject_id integer NOT NULL,
+    student_id integer NOT NULL,
+    subject_title character varying(100),
+    course_id integer NOT NULL,
+    course_title character varying(100),
+    CONSTRAINT requests_abroad_pkey PRIMARY KEY (request_abroad_id),
+    CONSTRAINT university_id_fkey FOREIGN KEY (university_id)
+        REFERENCES public.universities_abroad (university_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT requests_abroad_student_id_fkey FOREIGN KEY (student_id)
+        REFERENCES public.students (student_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION	
+)
+
+
+
 
 --
 -- Data for Name: schools; Type: TABLE DATA; Schema: public; Owner: rosariosis
@@ -2910,8 +2948,10 @@ INSERT INTO profile_exceptions VALUES (3, 'Student_Billing/Statements.php&_ROSAR
 INSERT INTO profile_exceptions VALUES (1, 'Students/StudentBreakdown.php', 'Y', 'Y');
 INSERT INTO profile_exceptions VALUES (0, 'Scheduling/CoursesAbroad.php', 'Y', 'Y');
 INSERT INTO profile_exceptions VALUES (1, 'Scheduling/CoursesAbroad.php', 'Y', 'Y');
-
-
+INSERT INTO profile_exceptions VALUES (0, 'Scheduling/ScheduleAbroad.php', 'Y', 'Y');
+INSERT INTO profile_exceptions VALUES (1, 'Scheduling/ScheduleAbroad.php', 'Y', 'Y');
+INSERT INTO profile_exceptions VALUES (0, 'Scheduling/RequestsAbroad.php', 'Y', 'Y');
+INSERT INTO profile_exceptions VALUES (1, 'Scheduling/RequestsAbroad.php', 'Y', 'Y');
 --
 -- Data for Name: program_config; Type: TABLE DATA; Schema: public; Owner: rosariosis
 --
@@ -2942,7 +2982,6 @@ INSERT INTO program_config VALUES (2019, 1, 'moodle', 'ROSARIO_STUDENTS_EMAIL_FI
 INSERT INTO program_config VALUES (2019, 1, 'food_service', 'FOOD_SERVICE_BALANCE_WARNING', '5');
 INSERT INTO program_config VALUES (2019, 1, 'food_service', 'FOOD_SERVICE_BALANCE_MINIMUM', '-40');
 INSERT INTO program_config VALUES (2019, 1, 'food_service', 'FOOD_SERVICE_BALANCE_TARGET', '19');
-
 
 --
 -- Data for Name: program_user_config; Type: TABLE DATA; Schema: public; Owner: rosariosis
