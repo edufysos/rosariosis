@@ -2198,7 +2198,7 @@ CREATE TABLE public.universities_abroad
     university_url character varying(255),
     university_token text,
     CONSTRAINT universities_abroad_pkey PRIMARY KEY (university_id)
-)
+);
 
 	
 
@@ -2214,6 +2214,8 @@ CREATE TABLE public.requests_abroad
     subject_title character varying(100),
     course_id integer NOT NULL,
     course_title character varying(100),
+    status character varying(2),
+    request_enrollment_id integer,
     CONSTRAINT requests_abroad_pkey PRIMARY KEY (request_abroad_id),
     CONSTRAINT university_id_fkey FOREIGN KEY (university_id)
         REFERENCES public.universities_abroad (university_id) MATCH SIMPLE
@@ -2223,10 +2225,36 @@ CREATE TABLE public.requests_abroad
         REFERENCES public.students (student_id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION	
-)
+);
 
 
+-- Table: public.enrollment_requests
 
+
+CREATE TABLE enrollment_requests
+(
+    enrollment_requests_id serial NOT NULL,
+	university_token text NOT NULL,
+	student_id integer NOT NULL,
+    last_name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    first_name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    middle_name character varying(50) COLLATE pg_catalog."default",
+    name_suffix character varying(3) COLLATE pg_catalog."default",
+    username character varying(100) COLLATE pg_catalog."default",
+    password character varying(106) COLLATE pg_catalog."default",
+	subject_id integer NOT NULL,
+	course_id integer NOT NULL,
+	status character varying(2),
+	CONSTRAINT enrollment_requests_pkey PRIMARY KEY (enrollment_requests_id),
+	CONSTRAINT enrollment_requests_subject_id_fkey FOREIGN KEY (subject_id)
+        REFERENCES public.course_subjects (subject_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+	CONSTRAINT enrollment_requests_course_id_fkey FOREIGN KEY (course_id)
+        REFERENCES public.courses (course_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION	
+	);
 
 --
 -- Data for Name: schools; Type: TABLE DATA; Schema: public; Owner: rosariosis

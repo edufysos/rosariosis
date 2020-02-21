@@ -147,9 +147,9 @@ if ( $_REQUEST['modfunc'] === 'add' )
 		
 		
 
-		DBQuery( "INSERT INTO REQUESTS_ABROAD (UNIVERSITY_ID,STUDENT_ID,SUBJECT_ID,COURSE_ID, SUBJECT_TITLE, COURSE_TITLE)
+		DBQuery( "INSERT INTO REQUESTS_ABROAD (UNIVERSITY_ID,STUDENT_ID,SUBJECT_ID,COURSE_ID, SUBJECT_TITLE, COURSE_TITLE, STATUS)
 			VALUES ('". $university_id . "','" . UserStudentID(). "','" .  $subject_id . "','" 
-		    . $course_id . "','" . $subject_title. "','" . $course_title. "')");
+		    . $course_id . "','" . $subject_title. "','" . $course_title. "', 'WO' )");
 	}
 
 	// Unset modfunc & course & redirect URL.
