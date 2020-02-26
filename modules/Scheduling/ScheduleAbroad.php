@@ -1,5 +1,6 @@
 <?php
 require_once 'classes/curl.php';
+require_once 'plugins/Moodle/getconfig.inc.php';
 
 
 DrawHeader( ProgramTitle() );
@@ -30,31 +31,18 @@ Widgets( 'request' );
 
 Search( 'student_id', $extra );
 
-// Deny.
-if ( $_REQUEST['modfunc'] === 'deny'
-    && AllowEdit() )
-{
-    if ( DeletePrompt( _( 'Request' ) ) )
-    {
-        DBQuery( "UPDATE REQUESTS_ABROAD SET STATUS = 'D'
-			WHERE REQUEST_ABROAD_ID='" . $_REQUEST['id'] . "'" );
-        
-        // Unset modfunc & ID & redirect URL.
-        RedirectURL( array( 'modfunc', 'id' ) );
-    }
-}
 
 // Send.
 if ( $_REQUEST['modfunc'] === 'send'
     && AllowEdit() )
 {
-    
-    $requests_RET = DBGet( "SELECT R.REQUEST_ABROAD_ID, R.COURSE_ID, R.SUBJECT_ID, R.STATUS, R.UNIVERSITY_ID, S.STUDENT_ID, 
+    $sql = "SELECT R.REQUEST_ABROAD_ID, R.COURSE_ID, R.SUBJECT_ID, R.STATUS, R.UNIVERSITY_ID, S.STUDENT_ID, S.". ROSARIO_STUDENTS_EMAIL_FIELD." as EMAIL,
                 S.LAST_NAME, S.FIRST_NAME, S.MIDDLE_NAME, S.NAME_SUFFIX, S.USERNAME, S.PASSWORD, U.UNIVERSITY_TOKEN, U.UNIVERSITY_URL
 		FROM ((REQUESTS_ABROAD R INNER JOIN STUDENTS S on S.STUDENT_ID = R.STUDENT_ID)  INNER JOIN UNIVERSITIES_ABROAD U
-        ON U.UNIVERSITY_ID = R.UNIVERSITY_ID) WHERE R.STUDENT_ID='" . UserStudentID() . "' AND R.STATUS = 'AO' ");
+        ON U.UNIVERSITY_ID = R.UNIVERSITY_ID) WHERE R.STUDENT_ID='" . UserStudentID() . "' AND R.STATUS = 'AO' ";
+    $requests_RET = DBGet( $sql);
     
-
+   
     foreach ( (array) $requests_RET as $request )
     {
         $data = '{
@@ -67,11 +55,14 @@ if ( $_REQUEST['modfunc'] === 'send'
             "middle_name" : "'. $request['MIDDLE_NAME'].'",
             "name_suffix": "'.$request['NAME_SUFFIX'].'",
             "username" : "'. $request['USERNAME'].'",
-            "password": "'. $request['PASSWORD'].'",
+            "pass_student": "'. $request['PASSWORD'].'",
+            "email": "'. $request['EMAIL'].'",
             "status" : "WD" 
             }';   
-          
+        
+         
         $response = _createEnrollmentRequest($request['UNIVERSITY_URL'], $request['UNIVERSITY_TOKEN'], "enrollment_requests", $data);
+        
         if (is_numeric($response)) {
             DBQuery( "UPDATE REQUESTS_ABROAD SET STATUS = 'WD', REQUEST_ENROLLMENT_ID = '".$response."'
 			WHERE REQUEST_ABROAD_ID='" .$request['REQUEST_ABROAD_ID'] . "'" );
@@ -103,6 +94,7 @@ if ( $_REQUEST['modfunc'] === 'update' )
             $sql = mb_substr( $sql, 0, -1 ) .
             " WHERE STUDENT_ID='" . UserStudentID() . "'
 				AND REQUEST_ABROAD_ID='" . $request_id . "'";
+
             
             DBQuery( $sql );
         }

@@ -4,6 +4,7 @@
 //core_user_create_users function
 function core_user_create_users_object()
 {
+    
 	//first, gather the necessary variables
 	global $student_id, $locale, $_REQUEST;
 
@@ -41,13 +42,31 @@ function core_user_create_users_object()
 	)}
 	)
 	 */
-	$username = mb_strtolower( $_REQUEST['students']['USERNAME'] );
-	$password = issetVal( $_REQUEST['students']['PASSWORD'] );
-	$firstname = issetVal( $_REQUEST['students']['FIRST_NAME'] );
-	$lastname = issetVal( $_REQUEST['students']['LAST_NAME'] );
-	$email = issetVal( $_REQUEST['students'][ROSARIO_STUDENTS_EMAIL_FIELD] );
-	$auth = 'manual';
-	$idnumber = (string) ( ! empty( $student_id ) ? $student_id : UserStudentID() );
+	
+	if (!isset( $_REQUEST['students']['USERNAME']) &&
+	    isset ($_REQUEST['STUDENT_ID'])){
+	    
+        $student = DBGet( "SELECT * FROM STUDENTS WHERE STUDENT_ID = '". $_REQUEST['STUDENT_ID'] . "' ");
+        
+        $username = mb_strtolower( $student[1]['USERNAME'] );
+        $password = issetVal( $student[1]['PASSWORD'] );
+        $firstname = issetVal( $student[1]['FIRST_NAME']);
+        $lastname = issetVal( $student[1]['LAST_NAME'] );
+        $email = issetVal( $student[1][ROSARIO_STUDENTS_EMAIL_FIELD] );
+        $auth = 'manual';
+        $idnumber =  $_REQUEST['STUDENT_ID'] ;
+	}
+	else{
+	    $username = mb_strtolower( $_REQUEST['students']['USERNAME'] );
+	    $password = issetVal( $_REQUEST['students']['PASSWORD'] );
+	    $firstname = issetVal( $_REQUEST['students']['FIRST_NAME'] );
+	    $lastname = issetVal( $_REQUEST['students']['LAST_NAME'] );
+	    $email = issetVal( $_REQUEST['students'][ROSARIO_STUDENTS_EMAIL_FIELD] );
+	    $auth = 'manual';
+	    $idnumber = (string) ( ! empty( $student_id ) ? $student_id : UserStudentID() );
+	}
+	
+
 
 	$users = array(
 		array(
@@ -92,6 +111,9 @@ function core_user_create_users_response( $response )
 
 	return null;
 }
+
+
+
 
 //core_user_update_users function
 function core_user_update_users_object()

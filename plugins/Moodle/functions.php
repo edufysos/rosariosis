@@ -12,6 +12,8 @@ if ( MOODLE_URL && MOODLE_TOKEN && MOODLE_PARENT_ROLE_ID && ROSARIO_STUDENTS_EMA
 	add_action( 'Students/Student.php|header', 'MoodleTriggered' );
 	add_action( 'Students/Student.php|create_student_checks', 'MoodleTriggered' );
 	add_action( 'Students/Student.php|create_student', 'MoodleTriggered' );
+	add_action( 'Students/Student.php|create_student_abroad', 'MoodleTriggered' );
+		
 	add_action( 'Students/Student.php|update_student_checks', 'MoodleTriggered' );
 	add_action( 'Students/Student.php|update_student', 'MoodleTriggered' );
 	add_action( 'Students/Student.php|upload_student_photo', 'MoodleTriggered' );
@@ -90,6 +92,7 @@ function MoodleTriggered( $hook_tag, $arg1 = '' )
 	global $error;
 
 	//check Moodle plugin configuration options are set
+	
 
 	if ( ! MOODLE_URL
 		|| ! MOODLE_TOKEN
@@ -159,7 +162,15 @@ function MoodleTriggered( $hook_tag, $arg1 = '' )
 			}
 
 			break;
-
+			
+		case 'Students/Student.php|create_student_abroad':
+		    if ( ! empty( $_REQUEST['moodle_create_student_abroad'] ) )
+		    {
+		        Moodle( $modname, 'core_user_create_users' );
+		    }
+		    
+		    break;
+		    
 		case 'Students/Student.php|update_student_checks':
 			if ( ! empty( $_REQUEST['students']['PASSWORD'] ) )
 			{
@@ -723,10 +734,10 @@ function Moodle( $modname, $moodle_functionname )
 	require_once 'plugins/Moodle/' . $modname;
 
 	require_once 'plugins/Moodle/client.php';
-
+	
 	//first, get the right object corresponding to the web service
 	$object = call_user_func( $moodle_functionname . '_object' );
-
+	
 	//finally, send the object
 	moodle_xmlrpc_call( $moodle_functionname, $object );
 }

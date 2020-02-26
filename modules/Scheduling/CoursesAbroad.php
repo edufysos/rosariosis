@@ -31,6 +31,21 @@ function _getCoursesAPI($path){
 	return $resp =  _getJson( $resp);
 }
 
+/** 
+ * Conects with the API of the abroad university 
+ * @param $path is the path of the REST API
+ * @return returns the requested data 
+*/
+function _getCoursesAPI2($path){
+    $university = DBGet( "SELECT UNIVERSITY_URL, UNIVERSITY_TOKEN FROM UNIVERSITIES_ABROAD  WHERE " .
+		 "UNIVERSITY_ID='1'");
+		 
+    	
+	$curl = new curl;
+	$resp = $curl->get( $university[1]['UNIVERSITY_URL'], array( 'usertoken' => $university[1]['UNIVERSITY_TOKEN'],
+	'path' => $path,) );
+	return $resp =  _getJson( $resp);
+}
 
 							
 $response = _getCoursesAPI("course_subjects");

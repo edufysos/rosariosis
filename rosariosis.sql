@@ -2241,10 +2241,13 @@ CREATE TABLE enrollment_requests
     middle_name character varying(50) COLLATE pg_catalog."default",
     name_suffix character varying(3) COLLATE pg_catalog."default",
     username character varying(100) COLLATE pg_catalog."default",
-    password character varying(106) COLLATE pg_catalog."default",
+    pass_student character varying(106) COLLATE pg_catalog."default",
 	subject_id integer NOT NULL,
 	course_id integer NOT NULL,
 	status character varying(2),
+	student_dest_id integer,
+	course_period_id integer,
+	email text,
 	CONSTRAINT enrollment_requests_pkey PRIMARY KEY (enrollment_requests_id),
 	CONSTRAINT enrollment_requests_subject_id_fkey FOREIGN KEY (subject_id)
         REFERENCES public.course_subjects (subject_id) MATCH SIMPLE
@@ -2253,7 +2256,11 @@ CREATE TABLE enrollment_requests
 	CONSTRAINT enrollment_requests_course_id_fkey FOREIGN KEY (course_id)
         REFERENCES public.courses (course_id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION	
+        ON DELETE NO ACTION,
+	CONSTRAINT enrollment_requests_course_period_id_fkey FOREIGN KEY (course_period_id)
+        REFERENCES public.course_periods (course_period_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION		
 	);
 
 --
