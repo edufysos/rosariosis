@@ -727,7 +727,7 @@ if ( ! isset( $_REQUEST['sidefunc'] )
 			<a href="Modules.php?modname=<?php echo $modcat_menu['default']; ?>" class="menu-top">
 
 				<span class="module-icon <?php echo $menu_i; ?>"
-				<?php if ( ! in_array( $menu_i, $RosarioCoreModules ) ) :
+				<?php if ( ! in_array( $menu_i, $RosarioCoreModules ) && ! in_array( $menu_i, $RosarioCorePlugins )) :
 					// Modcat is addon module, set custom module icon. ?>
 					style="background-image: url(modules/<?php echo $menu_i; ?>/icon.png);"
 				<?php endif; ?>

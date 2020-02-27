@@ -13,6 +13,9 @@
 	vertical-align: middle;
 }
 
+.module-icon.Abroad {
+	background-image: url("modules/Abroad.png");
+}
 .module-icon.Accounting {
 	background-image: url("modules/Accounting.png");
 }

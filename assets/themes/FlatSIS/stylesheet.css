@@ -10,6 +10,9 @@
 @import url("../WPadmin/stylesheet.css");
 /* Replace the modules icons */
 
+.module-icon.Abroad {
+	background-image: url("modules/Abroad.png");
+}
 .module-icon.Accounting {
 	background-image: url("modules/Accounting.png");
 }

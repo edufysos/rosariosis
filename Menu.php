@@ -18,6 +18,10 @@ if ( empty( $_ROSARIO['Menu'] ) )
 		global $RosarioModules;
 	}
 
+	if ( ! isset( $RosarioCorePlugins ) )
+	{
+	    global $RosarioCorePlugins;
+	}
 	// Include Menu.php for each active module.
 	foreach ( (array) $RosarioModules as $module => $active )
 	{
@@ -30,6 +34,20 @@ if ( empty( $_ROSARIO['Menu'] ) )
 			else
 				@include 'modules/' . $module . '/Menu.php';
 		}
+	}
+	
+	foreach ( (array) $RosarioCorePlugins as $plugin )
+	{
+	    if ( $active && 
+	        file_exists('./plugins/' . $plugin . '/Menu.php'))
+	    {
+	        if ( ROSARIO_DEBUG ) 
+	        {
+	            include 'plugins/' . $plugin . '/Menu.php';
+	        }
+	        else
+	            @include  'plugins/' . $plugin . '/Menu.php';
+	    }
 	}
 
 	$profile = User( 'PROFILE' );
@@ -55,13 +73,17 @@ if ( empty( $_ROSARIO['Menu'] ) )
 		// Force student profile to parent (same rights in Menu.php files).
 		$profile = 'parent';
 	}
+	
 
 	$_ROSARIO['AllowUse'] = DBGet( $allow_use_sql, array(), array( 'MODNAME' ) );
-
+	
+	
 	// Loop menu entries for each module & profile.
 	// Save menu entries in $_ROSARIO['Menu'] global var.
+	
 	foreach ( (array) $menu as $modcat => $profiles )
 	{
+	    
 		// FJ bugfix remove modules with no programs.
 		$no_programs_in_module = true;
 
@@ -97,7 +119,6 @@ if ( empty( $_ROSARIO['Menu'] ) )
 				$no_programs_in_module = false;
 			}
 		}
-
 		if ( $no_programs_in_module )
 		{
 			unset( $_ROSARIO['Menu'][ $modcat ] );

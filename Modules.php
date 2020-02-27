@@ -109,6 +109,10 @@ if ( $allowed )
 
 		HackingLog();
 	}
+	else if ( substr( $modname, 0, 7 ) == 'plugins')
+	{
+	    require_once $modname;
+	}
 	else
 	{
 		require_once 'modules/' . $modname;

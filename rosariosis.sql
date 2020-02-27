@@ -2981,12 +2981,12 @@ INSERT INTO profile_exceptions VALUES (3, 'Student_Billing/StudentPayments.php',
 INSERT INTO profile_exceptions VALUES (3, 'Student_Billing/DailyTransactions.php', 'Y', NULL);
 INSERT INTO profile_exceptions VALUES (3, 'Student_Billing/Statements.php&_ROSARIO_PDF', 'Y', NULL);
 INSERT INTO profile_exceptions VALUES (1, 'Students/StudentBreakdown.php', 'Y', 'Y');
-INSERT INTO profile_exceptions VALUES (0, 'Scheduling/CoursesAbroad.php', 'Y', 'Y');
-INSERT INTO profile_exceptions VALUES (1, 'Scheduling/CoursesAbroad.php', 'Y', 'Y');
-INSERT INTO profile_exceptions VALUES (0, 'Scheduling/ScheduleAbroad.php', 'Y', 'Y');
-INSERT INTO profile_exceptions VALUES (1, 'Scheduling/ScheduleAbroad.php', 'Y', 'Y');
-INSERT INTO profile_exceptions VALUES (0, 'Scheduling/RequestsAbroad.php', 'Y', 'Y');
-INSERT INTO profile_exceptions VALUES (1, 'Scheduling/RequestsAbroad.php', 'Y', 'Y');
+INSERT INTO profile_exceptions VALUES (0, 'plugins/Abroad/CoursesAbroad.php', 'Y', 'Y');
+INSERT INTO profile_exceptions VALUES (1, 'plugins/Abroad/CoursesAbroad.php', 'Y', 'Y');
+INSERT INTO profile_exceptions VALUES (0, 'plugins/Abroad/ScheduleAbroad.php', 'Y', 'Y');
+INSERT INTO profile_exceptions VALUES (1, 'plugins/Abroad/ScheduleAbroad.php', 'Y', 'Y');
+INSERT INTO profile_exceptions VALUES (0, 'plugins/Abroad/RequestsAbroad.php', 'Y', 'Y');
+INSERT INTO profile_exceptions VALUES (1, 'plugins/Abroad/RequestsAbroad.php', 'Y', 'Y');
 --
 -- Data for Name: program_config; Type: TABLE DATA; Schema: public; Owner: rosariosis
 --

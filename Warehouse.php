@@ -297,7 +297,7 @@ _LoadAddons( $non_core_modules, 'modules/' );
  * Core plugins cannot be deleted
  */
 $RosarioCorePlugins = array(
-	'Moodle',
+	'Moodle', 'Abroad'
 );
 
 $RosarioPlugins = unserialize( Config( 'PLUGINS' ) );
