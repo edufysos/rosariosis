@@ -20,7 +20,7 @@ function _getJson( $data )
  * @param $path is the path of the REST API
  * @return returns the requested data 
 */
-function _getCoursesAPI($path){
+/*function _getCoursesAPI($path){
 	$api_config = ProgramUserConfig( 'REST_API' );
 	$api_abroad_config = ProgramUserConfig( 'Abroad' );
 	$api_user_token = ! empty( $api_config['USER_TOKEN'] ) ? $api_config['USER_TOKEN'] : '';	
@@ -29,27 +29,22 @@ function _getCoursesAPI($path){
 	$resp = $curl->get( $api_url, array( 'usertoken' => $api_user_token,
 	'path' => $path,) );
 	return $resp =  _getJson( $resp);
-}
+}*/
 
 /** 
  * Conects with the API of the abroad university 
  * @param $path is the path of the REST API
  * @return returns the requested data 
 */
-function _getCoursesAPI2($path){
-    $university = DBGet( "SELECT UNIVERSITY_URL, UNIVERSITY_TOKEN FROM UNIVERSITIES_ABROAD  WHERE " .
-		 "UNIVERSITY_ID='1'");
-		 
+function _getCoursesAPI($url, $token, $path){
     	
 	$curl = new curl;
-	$resp = $curl->get( $university[1]['UNIVERSITY_URL'], array( 'usertoken' => $university[1]['UNIVERSITY_TOKEN'],
+	$resp = $curl->get( $url, array( 'usertoken' => $token,
 	'path' => $path,) );
 	return $resp =  _getJson( $resp);
 }
 
 							
-$response = _getCoursesAPI("course_subjects");
-$responseCourses = _getCoursesAPI("courses");
 
 #header( 'Content-Type: application/json' );
 
@@ -57,33 +52,40 @@ $responseCourses = _getCoursesAPI("courses");
 
 #print_r($response["records"][0]);
 
+$universities_RET = DBGet( "SELECT UNIVERSITY_URL, UNIVERSITY_TOKEN, UNIVERSITY_NAME FROM UNIVERSITIES_ABROAD");
 
+foreach ( (array) $universities_RET as $university )
+{
 
+    $response = _getCoursesAPI($university['UNIVERSITY_URL'], $university['UNIVERSITY_TOKEN'], "course_subjects");
+    $responseCourses = _getCoursesAPI($university['UNIVERSITY_URL'], $university['UNIVERSITY_TOKEN'],"courses");
+    
 $table= '
 	<div class="list-outer subjects">
 		<div class="list-wrapper">
 			<table class="list widefat" width="100%">
 				<thead>';
-
+                    $table .= '<tr><th>'. $university['UNIVERSITY_NAME'] .'</th>';
+                    $table .= '	</tr></thead><tbody>';
 				foreach($response["records"] as $key=>$subjects)
 				{
-					$table .= '<tr><th>'. $subjects['title'] .'</th>';
-					$table .= '<table><tbody>';
+					$table .= '<tr><td class="highlight">'. $subjects['title'] .'</td></tr>';
 					foreach($responseCourses["records"] as $key=>$courses)
-					{
+					{					    
 						if ($courses['subject_id'] ===  $subjects['subject_id'])
 						{
-							$table .= '<tr><td class="highlight">'.$courses['title'].'</td></tr>';
+							$table .= '<tr><td><span>&nbsp&nbsp&nbsp</span>'.$courses['title'].'</td></tr>';
 						}	
 					}	
-					$table .= '</tbody></table></tr>'  ;
-
+					$table .= '</tbody>'  ;
 				} 				
-$table .= '	</thead>
-			</table>
+
+            
+		$table .= '</table>
 		</div>
-	</div>';
+	</div> <br /> <br />';
 
 echo $table;
+}
 
 exit;
