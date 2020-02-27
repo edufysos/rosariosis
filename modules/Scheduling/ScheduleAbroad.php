@@ -29,9 +29,6 @@ if ( User( 'PROFILE' ) !== 'admin'
 
 Widgets( 'request' );
 
-Search( 'student_id', $extra );
-
-
 // Send.
 if ( $_REQUEST['modfunc'] === 'send'
     && AllowEdit() )
@@ -104,21 +101,26 @@ if ( $_REQUEST['modfunc'] === 'update' )
     RedirectURL( 'modfunc' );
 }
 
-if ( ! $_REQUEST['modfunc']
-    && UserStudentID() )
+if ( ! $_REQUEST['modfunc'] )
 {
 
 	$functions = array(
 		'COURSE' => '_makeCourse',
 	    'STATUS' => '_makeStatus'
 	);
+	
+	$sql = "SELECT R.REQUEST_ABROAD_ID, R.COURSE_ID, R.COURSE_TITLE as COURSE, R.STATUS, R.UNIVERSITY_ID, CONCAT(S.FIRST_NAME, ' ', S.LAST_NAME) as STUDENT		
+		FROM REQUESTS_ABROAD R INNER JOIN STUDENTS S ON S.STUDENT_ID = R.STUDENT_ID ";
+	if (UserStudentID() ){
+	    $sql .= " WHERE R.STUDENT_ID='" . UserStudentID() . "'";
+	}
+	
 
-	$requests_RET = DBGet( "SELECT REQUEST_ABROAD_ID, COURSE_ID, COURSE_TITLE as COURSE, STATUS, UNIVERSITY_ID		
-		FROM REQUESTS_ABROAD
-		WHERE STUDENT_ID='" . UserStudentID() . "'", $functions );
+	$requests_RET = DBGet(	$sql, $functions );
 
 	$columns = array(
-		'COURSE' => _( 'Course' ),
+	    'COURSE' => _( 'Course' ),
+	    'STUDENT' => _( 'Student' ),
 	    'STATUS'=> _( 'Status' ),
 	);
 
