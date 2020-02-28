@@ -461,7 +461,7 @@ function MoodleTriggered( $hook_tag, $arg1 = '' )
 					&& $columns['TEACHER_ID'] != $current[1]['TEACHER_ID'] )
 				{
 					Moodle( $modname, 'core_role_unassign_roles' );
-					Moodle( $modname, 'core_role_assign_roles' );
+					Moodle( $modname, 'enrol_manual_enrol_users' );
 				}
 			}
 
@@ -469,7 +469,7 @@ function MoodleTriggered( $hook_tag, $arg1 = '' )
 			elseif ( ! empty( $_REQUEST['moodle_create_course_period'] ) )
 			{
 				Moodle( $modname, 'core_course_create_courses' );
-				Moodle( $modname, 'core_role_assign_roles' );
+				Moodle( $modname, 'enrol_manual_enrol_users' );
 			}
 
 			break;
