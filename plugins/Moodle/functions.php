@@ -436,7 +436,7 @@ function MoodleTriggered( $hook_tag, $arg1 = '' )
 			if ( ! empty( $_REQUEST['moodle_create_course_period'] ) )
 			{
 				Moodle( $modname, 'core_course_create_courses' );
-				Moodle( $modname, 'core_role_assign_roles' );
+				Moodle( $modname, 'enrol_manual_enrol_users' );
 			}
 
 			break;
