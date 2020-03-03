@@ -156,7 +156,7 @@ if ( empty( $_REQUEST['save']) &&
     $link['add'] = array(
         'link' => 'Modules.php?modname=' . $_REQUEST['modname'] . '&tab=plugins&modfunc=config&plugin=Mobility&add=true',
     );
-    $link['add']['title'] = _( 'Add University Abroad' );
+    $link['add']['title'] = _( 'Add Partner University' );
     echo '<form action="Modules.php?modname=' . $_REQUEST['modname'] . '&tab=plugins&modfunc=config&plugin=Mobility&save=true" method="POST">';
     
     
