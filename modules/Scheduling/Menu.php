@@ -30,6 +30,7 @@ $menu['Scheduling']['admin'] = array(
 	'Scheduling/IncompleteSchedules.php' => _( 'Incomplete Schedules' ),
 	'Scheduling/AddDrop.php' => _( 'Add / Drop Report' ),
 	2 => _( 'Setup' ),
+    'Scheduling/Courses.php' => _( 'Courses' ),
 	'Scheduling/Scheduler.php' => _( 'Run Scheduler' ),
 );
 
