@@ -15,21 +15,6 @@ function _getJson( $data )
 
 	return $decoded;
 }
-/** 
- * Conects with the API of the abroad university 
- * @param $path is the path of the REST API
- * @return returns the requested data 
-*/
-/*function _getCoursesAPI($path){
-	$api_config = ProgramUserConfig( 'REST_API' );
-	$api_abroad_config = ProgramUserConfig( 'Abroad' );
-	$api_user_token = ! empty( $api_config['USER_TOKEN'] ) ? $api_config['USER_TOKEN'] : '';	
-	$curl = new curl;
-	$api_url  = ! empty( $api_abroad_config['UNIVERSITY_URL'] ) ? $api_abroad_config['UNIVERSITY_URL'] : '';
-	$resp = $curl->get( $api_url, array( 'usertoken' => $api_user_token,
-	'path' => $path,) );
-	return $resp =  _getJson( $resp);
-}*/
 
 /** 
  * Conects with the API of the abroad university 

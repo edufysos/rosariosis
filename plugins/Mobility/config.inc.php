@@ -2,12 +2,12 @@
 /**
  * Plugin configuration interface
  *
- * @package Abroad plugin
+ * @package Mobility plugin
  */
 
 // Check the script is called by the right program & plugin is activated.
 if ( $_REQUEST['modname'] !== 'School_Setup/Configuration.php'
-	|| ! $RosarioPlugins['Abroad']
+	|| ! $RosarioPlugins['Mobility']
 	|| $_REQUEST['modfunc'] !== 'config' )
 {
 	$error[] = _( 'You\'re not allowed to use this program!' );
@@ -90,7 +90,7 @@ if ( isset( $_REQUEST['add'] )
         dgettext( 'University Abroad', 'University Abroad' )
         );
     
-    echo '<form action="Modules.php?modname=' . $_REQUEST['modname'] . '&tab=plugins&modfunc=config&plugin=Abroad&new=true" method="POST">';
+    echo '<form action="Modules.php?modname=' . $_REQUEST['modname'] . '&tab=plugins&modfunc=config&plugin=Mobility&new=true" method="POST">';
     echo '<table class="width-100p">';
     
     // University Name
@@ -149,15 +149,15 @@ if ( empty( $_REQUEST['save']) &&
     );
     
     $link['remove'] = array(
-        'link' => 'Modules.php?modname=' . $_REQUEST['modname'] . '&tab=plugins&modfunc=config&plugin=Abroad&remove=true',
+        'link' => 'Modules.php?modname=' . $_REQUEST['modname'] . '&tab=plugins&modfunc=config&plugin=Mobility&remove=true',
         'variables' => array( 'id' => 'UNIVERSITY_ID' ),
     );
     
     $link['add'] = array(
-        'link' => 'Modules.php?modname=' . $_REQUEST['modname'] . '&tab=plugins&modfunc=config&plugin=Abroad&add=true',
+        'link' => 'Modules.php?modname=' . $_REQUEST['modname'] . '&tab=plugins&modfunc=config&plugin=Mobility&add=true',
     );
     $link['add']['title'] = _( 'Add University Abroad' );
-    echo '<form action="Modules.php?modname=' . $_REQUEST['modname'] . '&tab=plugins&modfunc=config&plugin=Abroad&save=true" method="POST">';
+    echo '<form action="Modules.php?modname=' . $_REQUEST['modname'] . '&tab=plugins&modfunc=config&plugin=Mobility&save=true" method="POST">';
     
     
     ListOutput(

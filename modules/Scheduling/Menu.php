@@ -15,9 +15,6 @@ $menu['Scheduling']['admin'] = array(
 	'default' => 'Scheduling/Schedule.php',
 	'Scheduling/Schedule.php' => _( 'Student Schedule' ),
 	'Scheduling/Requests.php' => _( 'Student Requests' ),
-	'Scheduling/ScheduleAbroad.php' => _( 'Student Schedule Abroad' ),
-	'Scheduling/RequestsAbroad.php' => _( 'Student Requests Abroad' ),
-    'Scheduling/RequestsUniversitiesAbroad.php' => _( 'Universities Requests Abroad' ),	
 	'Scheduling/MassSchedule.php' => _( 'Group Schedule' ),
 	'Scheduling/MassRequests.php' => _( 'Group Requests' ),
 	'Scheduling/MassDrops.php' => _( 'Group Drops' ),
@@ -33,8 +30,6 @@ $menu['Scheduling']['admin'] = array(
 	'Scheduling/IncompleteSchedules.php' => _( 'Incomplete Schedules' ),
 	'Scheduling/AddDrop.php' => _( 'Add / Drop Report' ),
 	2 => _( 'Setup' ),
-	'Scheduling/Courses.php' => _( 'Courses' ),
-	'Scheduling/CoursesAbroad.php' => _( 'Courses Abroad' ),
 	'Scheduling/Scheduler.php' => _( 'Run Scheduler' ),
 );
 
@@ -55,10 +50,8 @@ $menu['Scheduling']['parent'] = array(
 	'default' => 'Scheduling/Schedule.php',
 	'Scheduling/Schedule.php' => _( 'Schedule' ),
 	'Scheduling/Requests.php' => _( 'Student Requests' ),
-    'Scheduling/RequestsAbroad.php' => _( 'Student Requests Abroad' ),
 	// Activate Courses for Teachers & Parents & Students.
 	'Scheduling/Courses.php' => _( 'Courses' ),
-	'Scheduling/CoursesAbroad.php' => _( 'Courses Abroad' ),
 	1 => _( 'Reports' ),
 	// FJ activate Print Schedules for parents and students.
 	'Scheduling/PrintSchedules.php' => _( 'Print Schedules' ),

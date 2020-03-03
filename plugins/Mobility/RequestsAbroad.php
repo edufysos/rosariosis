@@ -74,7 +74,7 @@ if ( User( 'PROFILE' ) !== 'admin'
 	}
 
 	$can_edit_RET = DBGet( "SELECT MODNAME " . $can_edit_from_where .
-		" AND MODNAME='plugins/Abroad/RequestsAbroad.php'
+		" AND MODNAME='plugins/Mobility/RequestsAbroad.php'
 		AND CAN_EDIT='Y'" );
 
 	if ( $can_edit_RET )

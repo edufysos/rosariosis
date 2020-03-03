@@ -18,7 +18,7 @@ if ( User( 'PROFILE' ) !== 'admin'
     }
     
     $can_edit_RET = DBGet( "SELECT MODNAME " . $can_edit_from_where .
-        " AND MODNAME='Scheduling/RequestsAbroad.php'
+        " AND MODNAME='plugins/Mobility/RequestsAbroad.php'
 		AND CAN_EDIT='Y'" );
     
     if ( $can_edit_RET )
@@ -36,7 +36,10 @@ if ( $_REQUEST['modfunc'] === 'send'
     $sql = "SELECT R.REQUEST_ABROAD_ID, R.COURSE_ID, R.SUBJECT_ID, R.STATUS, R.UNIVERSITY_ID, S.STUDENT_ID, S.". ROSARIO_STUDENTS_EMAIL_FIELD." as EMAIL,
                 S.LAST_NAME, S.FIRST_NAME, S.MIDDLE_NAME, S.NAME_SUFFIX, S.USERNAME, S.PASSWORD, U.UNIVERSITY_TOKEN, U.UNIVERSITY_URL
 		FROM ((REQUESTS_ABROAD R INNER JOIN STUDENTS S on S.STUDENT_ID = R.STUDENT_ID)  INNER JOIN UNIVERSITIES_ABROAD U
-        ON U.UNIVERSITY_ID = R.UNIVERSITY_ID) WHERE R.STUDENT_ID='" . UserStudentID() . "' AND R.STATUS = 'AO' ";
+        ON U.UNIVERSITY_ID = R.UNIVERSITY_ID) WHERE R.STATUS = 'AO' ";
+    if (UserStudentID() ){
+        $sql .= " AND R.STUDENT_ID='" . UserStudentID() . "'";
+    }
     $requests_RET = DBGet( $sql);
     
    
@@ -75,6 +78,7 @@ if ( $_REQUEST['modfunc'] === 'send'
 // Update.
 if ( $_REQUEST['modfunc'] === 'update' )
 {
+
     if ( ! empty( $_REQUEST['values'] )
         && ! empty( $_POST['values'] )
         && AllowEdit() )
@@ -89,8 +93,10 @@ if ( $_REQUEST['modfunc'] === 'update' )
             }
             
             $sql = mb_substr( $sql, 0, -1 ) .
-            " WHERE STUDENT_ID='" . UserStudentID() . "'
-				AND REQUEST_ABROAD_ID='" . $request_id . "'";
+            " WHERE REQUEST_ABROAD_ID='" . $request_id . "'";
+            if (UserStudentID() ){
+                $sql .= " AND R.STUDENT_ID='" . UserStudentID() . "'";
+            }
 
             
             DBQuery( $sql );
