@@ -65,8 +65,7 @@ if ( $_REQUEST['modfunc'] === 'send'
          
         $response = _createEnrollmentRequest($request['UNIVERSITY_URL'], $request['UNIVERSITY_TOKEN'], "enrollment_requests", $data);
         
-        print_r( $response);
-        
+       
         if (is_numeric($response)) {
             DBQuery( "UPDATE REQUESTS_ABROAD SET STATUS = 'WD', REQUEST_ENROLLMENT_ID = '".$response."'
 			WHERE REQUEST_ABROAD_ID='" .$request['REQUEST_ABROAD_ID'] . "'" );
