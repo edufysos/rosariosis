@@ -203,9 +203,6 @@ function _makeStatus( $value, $column )
     
    
     $options = array();
-    $options['WO'] = "Waiting";
-    $options['DO'] = "Denied origin";
-    $options['AO'] = "Approved origin";
     $options['WD'] = "Waiting destination";
     $options['DD'] = "Denied destination";
     $options['AD'] = "Approved destination";
