@@ -42,11 +42,13 @@ if ( $_REQUEST['modfunc'] === 'send'
     }
     $requests_RET = DBGet( $sql);
     
+    $api_config = ProgramUserConfig( 'REST_API' );    
+    $api_user_token = ! empty( $api_config['USER_TOKEN'] ) ? $api_config['USER_TOKEN'] : '';
    
     foreach ( (array) $requests_RET as $request )
     {
         $data = '{
-            "university_token": "'.$request['UNIVERSITY_TOKEN'].'",
+            "university_token": "'.$api_user_token.'",
             "course_id": "'.$request['COURSE_ID'].'",
             "subject_id": "'.$request['SUBJECT_ID'].'",
             "student_id": "'.$request['STUDENT_ID'].'",
@@ -62,6 +64,8 @@ if ( $_REQUEST['modfunc'] === 'send'
         
          
         $response = _createEnrollmentRequest($request['UNIVERSITY_URL'], $request['UNIVERSITY_TOKEN'], "enrollment_requests", $data);
+        
+        print_r( $response);
         
         if (is_numeric($response)) {
             DBQuery( "UPDATE REQUESTS_ABROAD SET STATUS = 'WD', REQUEST_ENROLLMENT_ID = '".$response."'
@@ -95,7 +99,7 @@ if ( $_REQUEST['modfunc'] === 'update' )
             $sql = mb_substr( $sql, 0, -1 ) .
             " WHERE REQUEST_ABROAD_ID='" . $request_id . "'";
             if (UserStudentID() ){
-                $sql .= " AND R.STUDENT_ID='" . UserStudentID() . "'";
+                $sql .= " AND STUDENT_ID='" . UserStudentID() . "'";
             }
 
             
